@@ -4,6 +4,7 @@ const http = require('http');
 const debug = require('debug')('server:index');
 const chalk = require('chalk');
 const router = require('./routes/router');
+const { addUser, getUser, removeUser, getUsersInRoom } = require('./users');
 
 // enviroment variables config
 const config = require('./config');
@@ -26,11 +27,28 @@ app.use(router);
 
 // socket.o
 io.on('connection', (socket) => {
-    socket.on('join', ({name, room}) => {
-        debug(`${name} had connected to the room ${room}`);
+    socket.on('join', ({name, room}, callback) => {
+        const { error, user } = addUser({id: socket.id, name, room});
+
+        if (error) return callback(error);
+
+        socket.emit('message', {user: 'admin', text: `${user.name} Welcome to the room ${user.room}`});
+        socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name}, has joined`});
+
+        socket.join(user.room);
+
+        callback();
 
         socket.name = name;
         socket.room = room;
+    })
+
+    socket.on('sendMessage', (message, callback) => {
+        const user = getUser(socket.id);
+
+        io.to(user.room).emit('message', {user: user.name, text: message});
+
+        callback();
     })
 
     socket.on('disconnect', () => {
