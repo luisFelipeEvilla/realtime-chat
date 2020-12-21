@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "realtime chat application server side with express nodejs and socket.io",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "cross-env DEBUG=server:* NODE_ENV=dev nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luisFelipeEvilla/realtime-chat.git"
+  },
+  "keywords": [
+    "realtime",
+    "chat",
+    "nodejs",
+    "socket.io",
+    "socket",
+    "express"
+  ],
+  "author": "luis Felipe Evilla <www.github.com/luisFelipeEvilla>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luisFelipeEvilla/realtime-chat/issues"
+  },
+  "homepage": "https://github.com/luisFelipeEvilla/realtime-chat#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "debug": "^4.3.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "socket.io": "^3.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
