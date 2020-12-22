@@ -21,9 +21,7 @@ const removeUser = (id) => {
 
     if (index != -1) {
         return users.splice(index, 1)[0];
-    } else {
-        return { error: 'user not exists'};
-    }
+    } 
 }
 
 const getUser = (id) => users.find(user => user.id === id);
